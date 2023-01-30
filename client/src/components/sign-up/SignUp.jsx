@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { baseURL } from "../../url";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -68,7 +69,7 @@ const SignUp = () => {
       <button
         onClick={async () => {
           await axios
-            .post("/create_user", {
+            .post(baseURL + "/create_user", {
               name: name,
               surname: surname,
               email: email,

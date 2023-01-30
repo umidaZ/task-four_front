@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseURL } from "../../url";
 
 const SignIn = () => {
   const [status, setStatus] = useState(false);
@@ -9,7 +10,7 @@ const SignIn = () => {
 
   const fetchblockedUser = async () => {
     await axios
-      .get("/blocked_user", {})
+      .get(baseURL + "/blocked_user", {})
       .then((response) => {
         setStatus(response.data);
       })
@@ -52,13 +53,13 @@ const SignIn = () => {
         <button
           onClick={async () => {
             await axios
-              .post("/login", {
+              .post(baseURL + "/login", {
                 email,
                 password,
               })
               .then((response) => {
                 axios
-                  .post("lastLoginUpdate", { email })
+                  .post(baseURL + "lastLoginUpdate", { email })
                   .then((r) => {
                     console.log(r);
                   })

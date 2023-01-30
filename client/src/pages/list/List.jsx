@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
+import { baseURL } from "../../url";
 
 const users = [];
 
@@ -10,7 +11,7 @@ const List = () => {
 
   const fetchUsers = async () => {
     await axios
-      .get("/users")
+      .get(baseURL + "/users")
       .then((res) => setAllUsers(res.data))
       .catch((err) => console.log(err));
   };
@@ -72,7 +73,7 @@ const List = () => {
                       className="btn mx-3 px-4 btn-danger"
                       onClick={async () => {
                         await axios
-                          .post("/block_user", {
+                          .post(baseURL + "/block_user", {
                             id: user._id,
                             status: user.status,
                           })
@@ -94,7 +95,7 @@ const List = () => {
                       className="btn mx-3 px-4 btn-primary"
                       onClick={async () => {
                         await axios
-                          .post("/delete_user", {
+                          .post(baseURL + "/delete_user", {
                             id: _id,
                           })
                           .then((response) => {
@@ -122,7 +123,7 @@ const List = () => {
           className="m-2 btn btn-danger"
           onClick={async () => {
             await axios
-              .post("/delete_all_users")
+              .post(baseURL + "/delete_all_users")
               .then((response) => {
                 window.location.reload();
                 console.log(response);
@@ -139,7 +140,7 @@ const List = () => {
           className="m-2 btn btn-warning"
           onClick={async () => {
             await axios
-              .post("/delete_selected_users", { id: users })
+              .post(baseURL + "/delete_selected_users", { id: users })
               .then((response) => {
                 if (response.statusText == "OK") {
                   window.location.reload();

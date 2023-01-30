@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseURL } from "../../url";
 
 const setUserInLocalStorage = (data) => {
   localStorage.setItem("user", JSON.stringify(data));
@@ -9,7 +10,10 @@ export const registerUser = createAsyncThunk(
   "auth/signup",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(`/api/v1/users/signup`, userData);
+      const response = await axios.post(
+        baseURL + `/api/v1/users/signup`,
+        userData
+      );
       if (response.data) {
         setUserInLocalStorage(response.data);
         return response.data;
@@ -28,7 +32,10 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(`/api/v1/users/login`, userData);
+      const response = await axios.post(
+        baseURL + `/api/v1/users/login`,
+        userData
+      );
       if (response.data) {
         setUserInLocalStorage(response.data);
         return response.data;
@@ -46,7 +53,10 @@ export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
   async (data, thunkAPI) => {
     try {
-      const response = await axios.post(`/api/v1/users/forgotPassword`, data);
+      const response = await axios.post(
+        baseURL + `/api/v1/users/forgotPassword`,
+        data
+      );
 
       return response.data;
     } catch (err) {
@@ -64,7 +74,7 @@ export const resetPassword = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await axios.patch(
-        `/api/v1/users/resetPassword/${data.token}`,
+        baseURL + `/api/v1/users/resetPassword/${data.token}`,
         data.userData
       );
       return response.data;
